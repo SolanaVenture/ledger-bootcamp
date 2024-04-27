@@ -1,5 +1,15 @@
 # ledger-bootcamp
 
+A mini deposit-refund system for Encode Club that allows users to deposit 250 USDC (from whatever platform they are using) and receive an automatic refund if certain conditions are met.
+
+The refund condition would be a minimum 90% attendence time. The authorized Encode Club accounts would be able to approve the refund...etc.
+
+Smart Contract for Deposit and Refund: Manages the logic for depositing USDC, tracking attendance, and processing refunds.
+
+Frontend Application: Interfaces with the smart contract for users and staff. Allows users to deposit USDC and view their attendance and refund status. Allows authorized accounts to verify and approve refunds.
+
+Oracles or Integrations for Attendance Tracking: Reliable tracking and recording of attendance data which would likely need to interface with the educational platform's backend. (Not too familiar with oracles though)
+
 This project is generated with the [create-solana-dapp](https://github.com/solana-developers/create-solana-dapp) generator.
 
 ## Getting Started
@@ -25,6 +35,13 @@ Then:
 ```shell
 cd web2-api
 npm run dev
+```
+
+Add the organizer:
+
+```shell
+cd web-api
+npm run manage
 ```
 
 ### Installation
