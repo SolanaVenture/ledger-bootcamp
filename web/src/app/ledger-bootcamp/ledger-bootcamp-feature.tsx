@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { ExplorerLink } from '../cluster/cluster-ui';
 import { WalletButton } from '../solana/solana-provider';
@@ -7,16 +8,39 @@ import {
   LedgerBootcampCreate,
   LedgerBootcampProgram,
 } from './ledger-bootcamp-ui';
+import axios from 'axios';
+
+interface Organizer {
+  wallet_address: string;
+  name: string;
+  created_at: string;
+  active: boolean;
+}
 
 export default function LedgerBootcampFeature() {
   const { publicKey } = useWallet();
   const { programId } = useLedgerBootcampProgram();
+  const [organizer, setOrganizer] = useState<Organizer | null>(null);
+
+  useEffect(() => {
+    if (publicKey) {
+      axios
+        .get(`http://localhost:4000/organizer/${publicKey}`)
+        .then((response) => {
+          // console.log('Organizer', response.data);
+          setOrganizer(response.data);
+        })
+        .catch((error) => {
+          console.error('Could not retrieve organizer', error);
+        });
+    }
+  }, [publicKey]);
 
   return publicKey ? (
     <div>
       <AppHero
         title="LedgerBootcamp"
-        subtitle={'Run the program by clicking the "Run program" button.'}
+        subtitle={`Welcome organizer! ${organizer?.name}`}
       >
         <p className="mb-6">
           <ExplorerLink

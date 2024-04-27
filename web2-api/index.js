@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Kitten = require('./models/kitten');
+const Organizer = require('./models/organizer');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -26,6 +27,23 @@ app.get('/fluffy', (req, res) => {
     .then((kitten) => {
       if (kitten) {
         res.send(kitten.name);
+      } else {
+        res.send('Not found');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('An error occurred');
+    });
+});
+
+// get organiser information by wallet address
+app.get('/organizer/:wallet_address', (req, res) => {
+  const wallet_address = req.params.wallet_address;
+  Organizer.findOne({ wallet_address })
+    .then((organizer) => {
+      if (organizer) {
+        res.send(organizer);
       } else {
         res.send('Not found');
       }
