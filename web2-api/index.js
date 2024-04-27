@@ -1,15 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Kitten = require('./models/kitten');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 app.use(cors());
-
-const kittySchema = new mongoose.Schema({
-  name: String,
-});
-const Kitten = mongoose.model('Kitten', kittySchema);
 
 mongoose
   .connect(
