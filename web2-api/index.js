@@ -2,10 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Kitten = require('./models/kitten');
 const Organizer = require('./models/organizer');
+const Bootcamp = require('./models/bootcamp');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 mongoose
@@ -47,6 +49,31 @@ app.get('/organizer/:wallet_address', (req, res) => {
       } else {
         res.send('Not found');
       }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('An error occurred');
+    });
+});
+
+app.post('/bootcamp', (req, res) => {
+  const bootcampData = req.body;
+  const bootcamp = new Bootcamp(bootcampData);
+  bootcamp
+    .save()
+    .then(() => {
+      res.send('Bootcamp created successfully');
+    })
+    .catch((err) => {
+      console.error(err.message); // Print only the error message
+      res.status(500).send('An error occurred');
+    });
+});
+
+app.get('/bootcamps', (req, res) => {
+  Bootcamp.find({})
+    .then((bootcamps) => {
+      res.json(bootcamps);
     })
     .catch((err) => {
       console.error(err);
