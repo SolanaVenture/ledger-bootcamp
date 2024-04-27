@@ -12,6 +12,21 @@ This project is generated with the [create-solana-dapp](https://github.com/solan
 - Anchor CLI 0.29.0 or higher
 - Solana CLI 1.17.0 or higher
 
+### Start the Web2 Backend Server
+
+Create a `.env` file at the `web2-api` directory:
+
+```
+DB_PASSWORD=[DB_PASSWORD]
+```
+
+Then:
+
+```shell
+cd web2-api
+npm run dev
+```
+
 ### Installation
 
 #### Clone the repo
