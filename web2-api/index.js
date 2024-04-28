@@ -62,7 +62,7 @@ app.post('/bootcamp', (req, res) => {
   bootcamp
     .save()
     .then(() => {
-      res.send('Bootcamp created successfully');
+      res.send('Bootcamp saved successfully');
     })
     .catch((err) => {
       console.error(err.message); // Print only the error message
@@ -72,6 +72,18 @@ app.post('/bootcamp', (req, res) => {
 
 app.get('/bootcamps', (req, res) => {
   Bootcamp.find({})
+    .then((bootcamps) => {
+      res.json(bootcamps);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('An error occurred');
+    });
+});
+
+app.get('/bootcamps/:owner', (req, res) => {
+  const owner = req.params.owner;
+  Bootcamp.find({ owner })
     .then((bootcamps) => {
       res.json(bootcamps);
     })

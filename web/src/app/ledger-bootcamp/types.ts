@@ -5,6 +5,7 @@ export interface Organizer {
   active: boolean;
 }
 
+// for input
 export interface Bootcamp {
   name: string;
   owner: string;
@@ -16,4 +17,9 @@ export interface Bootcamp {
   deposit_amount: number;
   active: boolean;
   refunded: boolean;
+}
+
+// db result with _id
+export interface BootcampWithId extends Bootcamp {
+  _id: number;
 }

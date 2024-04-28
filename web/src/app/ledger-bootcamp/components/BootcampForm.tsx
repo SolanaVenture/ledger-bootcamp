@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Bootcamp } from '../types';
+import { Bootcamp, BootcampWithId } from '../types';
 import axios from 'axios';
 
 const BootcampForm = ({
   publicKey,
   ownerName,
+  setBootcamps,
 }: {
   publicKey: string;
   ownerName: string;
+  setBootcamps: React.Dispatch<React.SetStateAction<BootcampWithId[]>>;
 }) => {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState('');
@@ -49,8 +51,16 @@ const BootcampForm = ({
         'http://localhost:4000/bootcamp',
         bootcamp
       );
-      console.log(response.data);
+      console.log('submit reuslt', response.data);
       setMessage('Form submitted successfully!');
+
+      // Get bootcamps
+      const bootcampsResponse = await axios.get(
+        `http://localhost:4000/bootcamps/${publicKey}`
+      );
+      const bootcamps = bootcampsResponse.data;
+      console.log('bootcamps', bootcamps);
+      setBootcamps(bootcamps);
 
       // Clear form data
       setName('');
@@ -67,7 +77,6 @@ const BootcampForm = ({
 
   return (
     <div className="mb-6 border-2 border-grey-50 p-5">
-      <h2 className="text-2xl font-bold mb-4">Create a new bootcamp</h2>
       {!showForm && (
         <button className="btn btn-accent" onClick={handleOpenForm}>
           Create a new bootcamp
