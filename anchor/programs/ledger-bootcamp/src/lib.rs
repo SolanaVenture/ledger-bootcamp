@@ -18,6 +18,8 @@ pub mod ledger_bootcamp {
         escrow.bootcamp_id = bootcamp_id;
         escrow.deposits = [(Pubkey::default(), 0); MAX_DEPOSITS];
 
+        msg!("Escrow account created successfully for bootcamp");
+
         Ok(())
     }
 }
