@@ -19,51 +19,44 @@ This project is generated with the [create-solana-dapp](https://github.com/solan
 - Node v18.18.0 or higher
 
 - Rust v1.70.0 or higher
-- Anchor CLI 0.29.0 or higher
+- Anchor CLI 0.29.0 or higher (we use 0.29.0 here)
 - Solana CLI 1.17.0 or higher
 
-### Start the Web2 Backend Server
+### Development
 
-Create a `.env` file at the `web2-api` directory:
+1. Make sure you are at localnet, build the anchor program and deploy it:
 
+```shell
+cd anchor
+anchor build
 ```
-DB_PASSWORD=[DB_PASSWORD]
+
+2. Open a termial:
+
+```shell
+solana-test-validator
 ```
 
-Then:
+3. Open a terminal:
+
+```shell
+solana logs
+```
+
+4. Open a terminal and run the web2 backend api server (make sure the environment of mongdb is ready):
 
 ```shell
 cd web2-api
 npm run dev
 ```
 
-Add the organizer:
+5. Open another terminal and run the react app (make sure at the root directory):
 
 ```shell
-cd web-api
-npm run manage
-```
-
-### Installation
-
-#### Clone the repo
-
-```shell
-git clone <repo-url>
-cd <repo-name>
-```
-
-#### Install Dependencies
-
-```shell
-npm install
-```
-
-#### Start the web app
-
-```
 npm run dev
 ```
+
+6.  open http://localhost:3000 and make sure you have installed the browser wallet plugin like Phantom, set it to the development and use the local network
 
 ## Apps
 
@@ -109,7 +102,35 @@ npm run anchor-test
 npm run anchor deploy --provider.cluster devnet
 ```
 
-### web
+### ExpressJS Web2 backend
+
+We use MongoDB as the backend database.
+
+You can host MongoDB by yourself, or use the cloud solutions like [mongodb atlas](https://www.mongodb.com/cloud/atlas)
+
+Create a `.env` file at the `web2-api` directory:
+
+```
+DB_PASSWORD=[DB_PASSWORD]
+```
+
+Modify the connection string at `web2-api/index.js` (**TODO**)
+
+Then:
+
+```shell
+cd web2-api
+npm run dev
+```
+
+Add the organizer:
+
+```shell
+cd web-api
+npm run manage
+```
+
+### React App
 
 This is a React app that uses the Anchor generated client to interact with the Solana program.
 
