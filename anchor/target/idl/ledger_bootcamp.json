@@ -6,6 +6,35 @@
       "name": "greet",
       "accounts": [],
       "args": []
+    },
+    {
+      "name": "initBootcampEscrow",
+      "accounts": [
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bootcampId",
+          "type": "string"
+        }
+      ]
     }
-  ]
+  ],
+  "metadata": {
+    "address": "ChynTjGtAR59a28hTu4fAcEFVDd3QvfmcZyS6Uqn2c4M"
+  }
 }
