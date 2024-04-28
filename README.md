@@ -1,16 +1,50 @@
-# ledger-bootcamp
+# Bootcamp Ledger / Bootcamp Deposit-Refund System
 
-A mini deposit-refund system for Encode Club that allows users to deposit 250 USDC (from whatever platform they are using) and receive an automatic refund if certain conditions are met.
+A mini deposit-refund system for Encode Club that enables users to deposit 250 USDC from any platform and automatically receive a refund based on specific conditions.
 
-The refund condition would be a minimum 90% attendence time. The authorized Encode Club accounts would be able to approve the refund...etc.
+## Features
 
-Smart Contract for Deposit and Refund: Manages the logic for depositing USDC, tracking attendance, and processing refunds.
+- **Refund Condition:** Users are eligible for a refund if they meet a minimum 90% attendance requirement.
+- **Authorization:** Authorized Encode Club accounts can approve refund requests.
 
-Frontend Application: Interfaces with the smart contract for users and staff. Allows users to deposit USDC and view their attendance and refund status. Allows authorized accounts to verify and approve refunds.
+## Components
+**Smart Contract for Deposit and Refund**
 
-Oracles or Integrations for Attendance Tracking: Reliable tracking and recording of attendance data which would likely need to interface with the educational platform's backend. (Not too familiar with oracles though)
+Manages the logic for depositing USDC, tracks attendance, and processes refunds.
+
+**Frontend Application**
+
+Interfaces with the smart contract for users and staff. Allows users to deposit USDC, view their attendance, and check refund status. Authorized accounts can verify and approve refunds.
+
+**Oracles or Integrations for Attendance Tracking**
+
+Tracks and records attendance data, likely interfacing with the educational platform's backend. (Note: Oracles may be needed for this integration.)
+
+
+[//]: # (# ledger-bootcamp)
+
+[//]: # (A mini deposit-refund system for Encode Club that allows users to deposit 250 USDC &#40;from whatever platform they are using&#41; and receive an automatic refund if certain conditions are met.)
+
+[//]: # ()
+[//]: # (The refund condition would be a minimum 90% attendence time. The authorized Encode Club accounts would be able to approve the refund...etc.)
+
+[//]: # ()
+[//]: # (Smart Contract for Deposit and Refund: Manages the logic for depositing USDC, tracking attendance, and processing refunds.)
+
+[//]: # ()
+[//]: # (Frontend Application: Interfaces with the smart contract for users and staff. Allows users to deposit USDC and view their attendance and refund status. Allows authorized accounts to verify and approve refunds.)
+
+[//]: # ()
+[//]: # (Oracles or Integrations for Attendance Tracking: Reliable tracking and recording of attendance data which would likely need to interface with the educational platform's backend. &#40;Not too familiar with oracles though&#41;)
+
+## Project Details
 
 This project is generated with the [create-solana-dapp](https://github.com/solana-developers/create-solana-dapp) generator.
+
+## Contributors
+
+*To be added*
+
 
 ## Getting Started
 
@@ -147,3 +181,6 @@ Build the web app
 ```shell
 npm run build
 ```
+
+## License
+This project is licensed under the MIT License.
