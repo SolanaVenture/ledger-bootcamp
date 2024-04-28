@@ -8,14 +8,10 @@ import {
   LedgerBootcampCreate,
   LedgerBootcampProgram,
 } from './ledger-bootcamp-ui';
+import OrganizerBootcamps from './components/OrganizerBootcamps';
 import axios from 'axios';
-
-interface Organizer {
-  wallet_address: string;
-  name: string;
-  created_at: string;
-  active: boolean;
-}
+import BootcampForm from './components/BootcampForm';
+import { Organizer } from './types';
 
 export default function LedgerBootcampFeature() {
   const { publicKey } = useWallet();
@@ -28,7 +24,9 @@ export default function LedgerBootcampFeature() {
         .get(`http://localhost:4000/organizer/${publicKey}`)
         .then((response) => {
           // console.log('Organizer', response.data);
-          setOrganizer(response.data);
+          if (response.data !== 'Not found') {
+            setOrganizer(response.data);
+          }
         })
         .catch((error) => {
           console.error('Could not retrieve organizer', error);
@@ -39,8 +37,10 @@ export default function LedgerBootcampFeature() {
   return publicKey ? (
     <div>
       <AppHero
-        title="LedgerBootcamp"
-        subtitle={`Welcome organizer! ${organizer?.name}`}
+        title={`Welcome! ${
+          organizer ? 'Organizer: ' + organizer.name : 'Visitor'
+        }`}
+        subtitle="Create and manage your bootcamps"
       >
         <p className="mb-6">
           <ExplorerLink
@@ -51,6 +51,22 @@ export default function LedgerBootcampFeature() {
         <LedgerBootcampCreate />
       </AppHero>
       <LedgerBootcampProgram />
+      <div className="mt-6">
+        {organizer && <OrganizerBootcamps />}
+        {organizer && (
+          <BootcampForm
+            publicKey={publicKey.toString()}
+            ownerName={organizer.name}
+          />
+        )}
+        <div className="mb-6 border-2 border-grey-50 p-5">
+          <h2 className="text-2xl mb-2">Enrolled Bootcamps</h2>
+        </div>
+        <div className="mb-6 border-2 border-grey-50 p-5">
+          <h2 className="text-2xl mb-2">Upcoming Bootcamps</h2>
+          <button className="btn btn-accent">Enroll in bootcamp</button>
+        </div>
+      </div>
     </div>
   ) : (
     <div className="max-w-4xl mx-auto">
