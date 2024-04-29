@@ -93,5 +93,50 @@ app.get('/bootcamps/:owner', (req, res) => {
     });
 });
 
+app.get('/enrollable/bootcamps', (req, res) => {
+  const targetDate = new Date('2024-05-02T11:05:00.000Z');
+  const query = {
+    $expr: {
+      $and: [
+        { $lt: [{ $size: '$students' }, 10] },
+        { $eq: ['$start_date', targetDate] },
+        { $eq: ['$active', true] },
+      ],
+    },
+  };
+
+  Bootcamp.find(query)
+    .then((bootcamps) => {
+      // console.log(bootcamps);
+      res.json(bootcamps);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('An error occurred');
+    });
+});
+
+app.put('/bootcamp/:id/student', (req, res) => {
+  const bootcampId = req.params.id;
+  const { walletAddress } = req.body;
+
+  Bootcamp.findByIdAndUpdate(
+    bootcampId,
+    { $push: { students: walletAddress } },
+    { new: true }
+  )
+    .then((updatedBootcamp) => {
+      if (updatedBootcamp) {
+        res.json(updatedBootcamp);
+      } else {
+        res.status(404).send('Bootcamp not found');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('An error occurred');
+    });
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log('Server running on port', PORT));

@@ -33,6 +33,15 @@ const BootcampForm = ({
     setShowForm(false);
   };
 
+  const handleClearForm = () => {
+    setName('');
+    setDescription('');
+    setDuration(0);
+    setStartDate('');
+    setEndDate('');
+    setDepositAmount(0);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -211,6 +220,9 @@ const BootcampForm = ({
                 disabled={initBootcampEscrow.isPending}
               >
                 Run Program{initBootcampEscrow.isPending && '...'}
+              </button>
+              <button className="btn btn-warning" onClick={handleClearForm}>
+                Clear
               </button>
               <button className="btn" onClick={handleCloseForm}>
                 Cancel

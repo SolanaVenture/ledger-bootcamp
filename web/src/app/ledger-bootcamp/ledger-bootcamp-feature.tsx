@@ -12,6 +12,7 @@ import OrganizerBootcamps from './components/OrganizerBootcamps';
 import axios from 'axios';
 import BootcampForm from './components/BootcampForm';
 import { Organizer, BootcampWithId } from './types';
+import EnrolBootcamp from './components/EnrolBootcamp';
 
 export default function LedgerBootcampFeature() {
   const { publicKey } = useWallet();
@@ -80,9 +81,7 @@ export default function LedgerBootcampFeature() {
         <div className="mb-6 border-2 border-grey-50 p-5">
           <h2 className="text-2xl mb-2">Enrolled Bootcamps</h2>
         </div>
-        <div className="mb-6 border-2 border-grey-50 p-5">
-          <button className="btn btn-accent">Enroll in bootcamp</button>
-        </div>
+        <EnrolBootcamp />
       </div>
     </div>
   ) : (
