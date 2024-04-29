@@ -61,8 +61,8 @@ app.post('/bootcamp', (req, res) => {
   const bootcamp = new Bootcamp(bootcampData);
   bootcamp
     .save()
-    .then(() => {
-      res.send('Bootcamp saved successfully');
+    .then((savedBootcamp) => {
+      res.send(savedBootcamp._id);
     })
     .catch((err) => {
       console.error(err.message); // Print only the error message

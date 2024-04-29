@@ -8,5 +8,5 @@ export { LedgerBootcamp, LedgerBootcampIDL };
 
 // After updating your program ID (e.g. after running `anchor keys sync`) update the value below.
 export const programId = new PublicKey(
-  'Au1ExzDo4BEEhdjbToCr1XrdGvVYfi2MNW9YDSmeLBUb'
+  '7BqJUqX6jPVifdvNHqJBV2ohtHxMJYz6SS8rezBpkYpS'
 );

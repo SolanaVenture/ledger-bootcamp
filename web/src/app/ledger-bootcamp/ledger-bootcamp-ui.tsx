@@ -10,7 +10,7 @@ export function LedgerBootcampCreate() {
       onClick={() => greet.mutateAsync(Keypair.generate())}
       disabled={greet.isPending}
     >
-      Run program{greet.isPending && '...'}
+      Run Greet program{greet.isPending && '...'}
     </button>
   );
 }

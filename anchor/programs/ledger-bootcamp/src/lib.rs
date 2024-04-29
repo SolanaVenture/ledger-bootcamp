@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Au1ExzDo4BEEhdjbToCr1XrdGvVYfi2MNW9YDSmeLBUb");
+declare_id!("7BqJUqX6jPVifdvNHqJBV2ohtHxMJYz6SS8rezBpkYpS");
 
 const MAX_DEPOSITS: usize = 20;
 

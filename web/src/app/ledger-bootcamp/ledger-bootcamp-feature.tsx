@@ -49,6 +49,8 @@ export default function LedgerBootcampFeature() {
     }
   }, [organizer]);
 
+  console.log('progeamId', programId.toString());
+
   return publicKey ? (
     <div>
       <AppHero

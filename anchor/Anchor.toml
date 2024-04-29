@@ -6,14 +6,14 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-ledger_bootcamp = "Au1ExzDo4BEEhdjbToCr1XrdGvVYfi2MNW9YDSmeLBUb"
+ledger_bootcamp = "7BqJUqX6jPVifdvNHqJBV2ohtHxMJYz6SS8rezBpkYpS"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Localnet"
-wallet = "~/my-solana-wallet/my-keypair.json"
+wallet = "/home/park/my-solana-wallet/my-keypair.json"
 
 [scripts]
 test = "../node_modules/.bin/nx run anchor:jest"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Bootcamp, BootcampWithId } from '../types';
 import axios from 'axios';
+import { useLedgerBootcampProgram } from '../ledger-bootcamp-data-access';
 
 const BootcampForm = ({
   publicKey,
@@ -19,6 +20,10 @@ const BootcampForm = ({
   const [endDate, setEndDate] = useState('');
   const [depositAmount, setDepositAmount] = useState(0);
   const [message, setMessage] = useState('');
+
+  const [bootcampId, setBootcampId] = useState('');
+
+  const { initBootcampEscrow } = useLedgerBootcampProgram();
 
   const handleOpenForm = () => {
     setShowForm(true);
@@ -52,6 +57,7 @@ const BootcampForm = ({
         bootcamp
       );
       console.log('submit reuslt', response.data);
+      setBootcampId(response.data);
       setMessage('Form submitted successfully!');
 
       // Get bootcamps
@@ -59,16 +65,21 @@ const BootcampForm = ({
         `http://localhost:4000/bootcamps/${publicKey}`
       );
       const bootcamps = bootcampsResponse.data;
-      console.log('bootcamps', bootcamps);
+      // console.log('bootcamps', bootcamps);
       setBootcamps(bootcamps);
 
+      // init Solana escrow account for the bootcamp
+      // console.log('bootcamp id: ', response.data);
+      // const signature = mutate({ bootcampId: response.data });
+      // console.log('signature', signature);
+
       // Clear form data
-      setName('');
-      setDescription('');
-      setDuration(0);
-      setStartDate('');
-      setEndDate('');
-      setDepositAmount(0);
+      // setName('');
+      // setDescription('');
+      // setDuration(0);
+      // setStartDate('');
+      // setEndDate('');
+      // setDepositAmount(0);
     } catch (error) {
       console.error(error);
       setMessage('Form submission failed.');
@@ -189,6 +200,17 @@ const BootcampForm = ({
             <div className="flex justify-end space-x-4">
               <button type="submit" className="btn btn-accent">
                 Submit
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={() =>
+                  initBootcampEscrow.mutateAsync({
+                    bootcampId,
+                  })
+                }
+                disabled={initBootcampEscrow.isPending}
+              >
+                Run Program{initBootcampEscrow.isPending && '...'}
               </button>
               <button className="btn" onClick={handleCloseForm}>
                 Cancel
