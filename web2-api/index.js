@@ -94,12 +94,12 @@ app.get('/bootcamps/:owner', (req, res) => {
 });
 
 app.get('/enrollable/bootcamps', (req, res) => {
-  const targetDate = new Date('2024-05-02T11:05:00.000Z');
+  const today = new Date();
   const query = {
     $expr: {
       $and: [
-        { $lt: [{ $size: '$students' }, 10] },
-        { $eq: ['$start_date', targetDate] },
+        { $lt: [{ $size: '$students' }, 20] },
+        { $gt: ['$start_date', today] },
         { $eq: ['$active', true] },
       ],
     },
@@ -120,17 +120,23 @@ app.put('/bootcamp/:id/student', (req, res) => {
   const bootcampId = req.params.id;
   const { walletAddress } = req.body;
 
-  Bootcamp.findByIdAndUpdate(
-    bootcampId,
-    { $push: { students: walletAddress } },
-    { new: true }
-  )
-    .then((updatedBootcamp) => {
-      if (updatedBootcamp) {
-        res.json(updatedBootcamp);
-      } else {
-        res.status(404).send('Bootcamp not found');
+  Bootcamp.findById(bootcampId)
+    .then((bootcamp) => {
+      if (!bootcamp) {
+        return res.status(404).send('Bootcamp not found');
       }
+
+      if (bootcamp.students.includes(walletAddress)) {
+        return res
+          .status(400)
+          .send('Wallet address already exists in students array');
+      } else {
+        bootcamp.students.push(walletAddress);
+        return bootcamp.save();
+      }
+    })
+    .then((updatedBootcamp) => {
+      res.json(updatedBootcamp);
     })
     .catch((err) => {
       console.error(err);

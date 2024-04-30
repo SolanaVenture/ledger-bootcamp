@@ -31,18 +31,26 @@ const EnrolBootcamp = () => {
     try {
       const response = await axios.put(
         `http://localhost:4000/bootcamp/${bootcampId}/student`,
-        { student: wallet.publicKey?.toString() }
+        { walletAddress: wallet.publicKey?.toString() }
       );
 
       console.log(response.data);
 
-      setMessage(
-        `Student wallet address ${wallet.publicKey?.toString()} has been enrolled in bootcamp (${
-          response.data.name
-        }) ${response.data._id}`
-      );
-    } catch (error) {
-      console.error('Failed to enrol student', error);
+      if (response.data.students.includes(wallet.publicKey?.toString())) {
+        setMessage(
+          `Student wallet address ${wallet.publicKey?.toString()} has been enrolled in bootcamp (${
+            response.data.name
+          }) ${response.data._id}`
+        );
+      } else {
+        setMessage('Maybe Failed to enrol student');
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        setMessage(error.response.data);
+      } else {
+        console.error('Failed to enrol student', error);
+      }
     }
   };
 

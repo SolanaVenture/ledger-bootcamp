@@ -22,4 +22,5 @@ export interface Bootcamp {
 // db result with _id
 export interface BootcampWithId extends Bootcamp {
   _id: number;
+  students?: string[];
 }

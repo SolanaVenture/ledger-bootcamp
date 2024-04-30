@@ -14,6 +14,18 @@ const OrganizerBootcamps = ({ bootcamps }: { bootcamps: BootcampWithId[] }) => {
           <p>Deposit amount: {bootcamp.deposit_amount} Lamports</p>
           <p>Active: {bootcamp.active ? 'Yes' : 'No'}</p>
           <p>Refunded: {bootcamp.refunded ? 'Yes' : 'No'}</p>
+          {bootcamp.students && bootcamp.students.length > 0 && (
+            <div>
+              <h4>Students:</h4>
+              <ul>
+                {bootcamp.students.map((student, index) => (
+                  <li key={`${bootcamp._id}-student-${index + 1}`}>
+                    {student}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       ))}
     </div>
