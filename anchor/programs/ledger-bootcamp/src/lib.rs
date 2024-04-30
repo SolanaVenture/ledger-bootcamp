@@ -28,14 +28,16 @@ pub mod ledger_bootcamp {
 pub struct Initialize {}
 
 #[derive(Accounts)]
+#[instruction(bootcamp_id: String)]
 pub struct InitializeEscrow<'info> {
     #[account(
         init,
-        seeds = [b"escrow", signer.key().as_ref()],
+        seeds = [b"escrow", signer.key().as_ref(), bootcamp_id.as_bytes().as_ref()],
         bump,
         payer = signer,
-        space = 8 + std::mem::size_of::<EscrowAccount>() + 8,
-    )]
+        space = 8 + 1000,
+        )
+    ]
     pub escrow: Account<'info, EscrowAccount>,
     #[account(mut)]
     pub signer: Signer<'info>,

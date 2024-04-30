@@ -43,7 +43,11 @@ export function useLedgerBootcampProgram() {
 
       const walletPublicKey = new PublicKey(wallet.publicKey);
       const [escrowPDA] = web3.PublicKey.findProgramAddressSync(
-        [Buffer.from('escrow'), walletPublicKey.toBuffer()], // seed
+        [
+          Buffer.from('escrow'),
+          walletPublicKey.toBuffer(),
+          Buffer.from(bootcampId, 'utf-8'),
+        ], // seed
         programId
       );
 
