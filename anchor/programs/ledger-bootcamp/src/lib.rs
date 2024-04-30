@@ -15,10 +15,13 @@ pub mod ledger_bootcamp {
 
     pub fn init_bootcamp_escrow(ctx: Context<InitializeEscrow>, bootcamp_id: String) -> Result<()> {
         let escrow = &mut ctx.accounts.escrow;
-        escrow.bootcamp_id = bootcamp_id;
+        escrow.bootcamp_id = bootcamp_id.clone();
         escrow.deposits = [(Pubkey::default(), 0); MAX_DEPOSITS];
 
-        msg!("Escrow account created successfully for bootcamp");
+        msg!(
+            "Escrow account created successfully for bootcamp: {}",
+            bootcamp_id
+        );
 
         Ok(())
     }
@@ -35,7 +38,7 @@ pub struct InitializeEscrow<'info> {
         seeds = [b"escrow", signer.key().as_ref(), bootcamp_id.as_bytes().as_ref()],
         bump,
         payer = signer,
-        space = 8 + 1000,
+        space = 1000,
         )
     ]
     pub escrow: Account<'info, EscrowAccount>,

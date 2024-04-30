@@ -211,6 +211,7 @@ const BootcampForm = ({
                 Submit
               </button>
               <button
+                type="button"
                 className="btn btn-primary"
                 onClick={() =>
                   initBootcampEscrow.mutateAsync({
@@ -221,10 +222,14 @@ const BootcampForm = ({
               >
                 Run Program{initBootcampEscrow.isPending && '...'}
               </button>
-              <button className="btn btn-warning" onClick={handleClearForm}>
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={handleClearForm}
+              >
                 Clear
               </button>
-              <button className="btn" onClick={handleCloseForm}>
+              <button type="button" className="btn" onClick={handleCloseForm}>
                 Cancel
               </button>
             </div>
